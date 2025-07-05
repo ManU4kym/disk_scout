@@ -10,6 +10,3 @@ sysinfo = "0.29"
 winreg = { version = "0.10", optional = true }
 winapi = { version = "0.3", features = ["winnt"] }
 
-[features]
-default = []
-windows-autorun = ["winreg", "winapi"]
