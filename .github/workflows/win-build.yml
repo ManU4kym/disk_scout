@@ -1,0 +1,68 @@
+name: Disk Scout – Windows Build & Release
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  release:
+    types: [published]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: Build and Lint (Windows)
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Lint (cargo fmt)
+        run: cargo fmt --all -- --check
+
+      - name: Lint (cargo clippy)
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
+      - name: Build with optional autorun feature
+        run: cargo build --release --features windows-autorun
+
+      - name: Upload artifact (.exe)
+        uses: actions/upload-artifact@v4
+        with:
+          name: disk_scout.exe
+          path: target/release/disk_scout.exe
+
+  release:
+    name: Upload to GitHub Release
+    needs: build
+    if: github.event_name == 'release'
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Build Release Binary
+        run: cargo build --release --features windows-autorun
+
+      - name: Upload binary to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: target/release/disk_scout.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
