@@ -7,6 +7,6 @@ edition = "2024"
 walkdir = "2"
 sysinfo = "0.29"
 
-winreg = { version = "0.10", optional = true }
+winreg = { version = "0.55", optional = true }
 winapi = { version = "0.3", features = ["winnt"] }
 
