@@ -32,8 +32,10 @@ jobs:
       - name: Lint (cargo clippy)
         run: cargo clippy --all-targets --all-features -- -D warnings
 
-      - name: Build with optional autorun feature
-        run: cargo build --release --features windows-autorun
+      - name: Build release
+        run: cargo build --release
+
+        
 
       - name: Upload artifact (.exe)
         uses: actions/upload-artifact@v4
