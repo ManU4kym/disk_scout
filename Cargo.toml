@@ -5,7 +5,7 @@ edition = "2024"
 
 [dependencies]
 walkdir = "2"
-sysinfo = "0.29"
+sysinfo = "0.37"
 
 winreg = { version = "0.55", optional = true }
 winapi = { version = "0.3", features = ["winnt"] }
