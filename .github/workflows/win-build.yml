@@ -38,7 +38,7 @@ jobs:
         
 
       - name: Upload artifact (.exe)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: disk_scout.exe
           path: target/release/disk_scout.exe
