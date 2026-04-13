@@ -63,7 +63,7 @@ jobs:
         run: cargo build --release --features windows-autorun
 
       - name: Upload binary to release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: target/release/disk_scout.exe
         env:
